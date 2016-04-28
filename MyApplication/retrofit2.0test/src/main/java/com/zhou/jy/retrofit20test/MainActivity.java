@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 Call<Repo> call=service.loadRepo();
                 try {
                     Response<Repo> repo=call.execute();
-                    Log.i("aaaaaa",repo.body().toString());
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
