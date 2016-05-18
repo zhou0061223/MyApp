@@ -7,6 +7,7 @@ import android.util.Log;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloader;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,14 @@ public class DownLoadManager {
 
 
     private static DownLoadManager downLoadManager;
-    public static  List<DownloadTask>  DownList=new ArrayList<DownloadTask>();
+    public   List<DownloadTask>  DownList=new ArrayList<DownloadTask>();
     private static String  PATH=Environment.getExternalStorageDirectory().getPath();
 
 
-    public static DownLoadManager getSingleton() {
+    public static DownLoadManager getSingleton(Context context) {
         if(downLoadManager == null){
             downLoadManager = new DownLoadManager();
+            downLoadManager.DownLoad(context);
         }
         return downLoadManager;
     }
@@ -38,9 +40,13 @@ public class DownLoadManager {
                 return false;
             }
         }
-        downloadTask.setPath(task.getPath()).setId(task.getDownloadId()).setBaseDownloadTask(task);
-        DownList.add(downloadTask);
 
+
+        downloadTask
+                .setPath(task.getPath())
+                .setId(task.getDownloadId())
+                .setBaseDownloadTask(task);
+        DownList.add(downloadTask);
         return  true;
     }
 
@@ -55,10 +61,9 @@ public class DownLoadManager {
         return createTask(downloadTask);
     }
 
-    public   void init(Context context){
+    public   void DownLoad(Context context){
         DownList=new ArrayList<DownloadTask>();
-
-        ListToSting<DownloadData> listToSting=new ListToSting<>();
+        PreferenceTool.ListToSting<DownloadData> listToSting = new PreferenceTool(). new ListToSting<DownloadData>();
         List<DownloadData> datas=new ArrayList<DownloadData>();
         String str=PreferenceTool.LoadData("test","down",context);
         if (str!=null && !str.equals("error")){
@@ -70,6 +75,11 @@ public class DownLoadManager {
                 }
                 for(DownloadData downloadData:datas){
                     if(downloadData!=null) {
+
+                        if(downloadData.isFinish() &&!(new File(downloadData.getPath()).exists())){
+                            downloadData.setFinish(false);
+                            downloadData.setSoFarBytes(0);
+                        }
                         DownloadTask downloadTask=new DownloadTask()
                                 .setUrl(downloadData.getUrl())
                                 .setName(downloadData.getName())
@@ -77,7 +87,7 @@ public class DownLoadManager {
                                 .setTotalBytes(downloadData.getTotalBytes())
                                 .setSoFarBytes(downloadData.getSoFarBytes())
                                 .setFinish(downloadData.isFinish());
-                        DownLoadManager.getSingleton().createTask(downloadTask);
+                        DownLoadManager.getSingleton(context).createTask(downloadTask);
                     }
 
                 }
@@ -94,10 +104,14 @@ public class DownLoadManager {
 
 
     public   void DownSave(Context context){
-        ListToSting<DownloadData> listToSting=new ListToSting<>();
+        PreferenceTool.ListToSting<DownloadData> listToSting=new PreferenceTool().new  ListToSting<>();
         List<DownloadData> datas=new ArrayList<DownloadData>();
-        for(DownloadTask downloadTask: DownLoadManager.DownList){
+        for(DownloadTask downloadTask:DownList){
             if(downloadTask!=null) {
+  /*              if(downloadTask.isFinish() &&!(new File(downloadTask.getPath()).exists())){
+                    downloadTask.setFinish(false);
+                    downloadTask.setSoFarBytes(0);
+                }*/
                 DownloadData downloadData=new DownloadData();
                 downloadData.setImageUrl(downloadTask.getImageUrl());
                 downloadData.setSoFarBytes(downloadTask.getSoFarBytes());
@@ -106,6 +120,7 @@ public class DownLoadManager {
                 downloadData.setName(downloadTask.getName());
                 downloadData.setFinish(downloadTask.isFinish());
                 downloadData.setPath(downloadTask.getPath());
+
                 datas.add(downloadData);
             }
         }
@@ -120,5 +135,15 @@ public class DownLoadManager {
 
     }
 
+    public   List<DownloadTask> getDownList(){
+        return   DownList;
+    }
+
+    public DownloadTask   getDownListPosition(int position){
+        return DownList.get(position);
+    }
+    public void    setDownListPosition(int position,DownloadTask task){
+        DownList.set(position,task);
+    }
 
 }

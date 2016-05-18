@@ -1,5 +1,6 @@
 package com.zhou.jy.filedownloadertest;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
@@ -15,11 +16,13 @@ public class DownloadListener extends FileDownloadListener{
 
     private DownLoadAdapter.FileViewHolder fileViewHolder;
     private int position;
+    private Context context;
 
 
-    public  DownloadListener( DownLoadAdapter.FileViewHolder fileViewHolder,int  position){
+    public  DownloadListener(DownLoadAdapter.FileViewHolder fileViewHolder, int  position, Context context){
         this.fileViewHolder=fileViewHolder;
         this.position=position;
+        this.context=context;
     }
     @Override
     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
@@ -30,10 +33,10 @@ public class DownloadListener extends FileDownloadListener{
     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
         fileViewHolder.updateDownloading(soFarBytes,totalBytes ,task.getSpeed());
-        DownloadTask downloadTask = DownLoadManager.DownList.get(position);
+        DownloadTask downloadTask = DownLoadManager.getSingleton(context).getDownListPosition(position);
         downloadTask.setTotalBytes(totalBytes);
         downloadTask.setSoFarBytes(soFarBytes);
-        DownLoadManager.DownList.set(position,downloadTask);
+        DownLoadManager.getSingleton(context).setDownListPosition(position,downloadTask);
     }
 
     @Override
@@ -41,9 +44,9 @@ public class DownloadListener extends FileDownloadListener{
         fileViewHolder.mBtnOperate.setText("打开");
         fileViewHolder.mNumberProgressBar.setVisibility(View.GONE);
         fileViewHolder.mTvDownloadSpeed.setVisibility(View.GONE);
-        DownloadTask downloadTask = DownLoadManager.DownList.get(position);
+        DownloadTask downloadTask = DownLoadManager.getSingleton(context).getDownListPosition(position);
         downloadTask.setFinish(true);
-        DownLoadManager.DownList.set(position,downloadTask);
+        DownLoadManager.getSingleton(context).setDownListPosition(position,downloadTask);
     }
 
     @Override

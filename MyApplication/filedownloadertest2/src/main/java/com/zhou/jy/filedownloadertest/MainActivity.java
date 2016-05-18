@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
             break;
             case R.id.Btn_test:
-                DownLoadManager.getSingleton().createTask("http://183.58.18.32/apk.r1.market.hiapk.com/data/upload/marketClient/HiMarket7.0.81_1460024188881.apk?wsiphost=local","HiMarket7.apk","http://img.r1.market.hiapk.com/data/upload/2016/04_06/11/72_72_20160406114509_2825.png");
-                DownLoadManager.getSingleton().createTask("http://filelx.liqucn.com/upload/2015/anquan/360MobileSafe.apk","360MobileSafe.apk","http://images.liqucn.com/mini/120x120/h021/h05/images201503201118220_info121X121_120x120.jpg");
-                DownLoadManager.getSingleton().createTask("http://downali.game.uc.cn/wm/14/14/Clash_Royale-1.2.6-kunlun_uc-release_5182542_111552e266c6.apk?sh=10&sf=93959947&vh=3054280d557109c1a0a3a87ba420f5a1&cc=316613636","Clash_Royale-1.2.6.apk","http://images.liqucn.com/mini/120x120/img/h1/h858/img201603290953090_info200X200_120x120.png");
+                DownLoadManager.getSingleton(this).createTask("http://183.58.18.32/apk.r1.market.hiapk.com/data/upload/marketClient/HiMarket7.0.81_1460024188881.apk?wsiphost=local","HiMarket7.apk","http://img.r1.market.hiapk.com/data/upload/2016/04_06/11/72_72_20160406114509_2825.png");
+                DownLoadManager.getSingleton(this).createTask("http://filelx.liqucn.com/upload/2015/anquan/360MobileSafe.apk","360MobileSafe.apk","http://images.liqucn.com/mini/120x120/h021/h05/images201503201118220_info121X121_120x120.jpg");
+                DownLoadManager.getSingleton(this).createTask("http://downali.game.uc.cn/wm/14/14/Clash_Royale-1.2.6-kunlun_uc-release_5182542_111552e266c6.apk?sh=10&sf=93959947&vh=3054280d557109c1a0a3a87ba420f5a1&cc=316613636","Clash_Royale-1.2.6.apk","http://images.liqucn.com/mini/120x120/img/h1/h858/img201603290953090_info200X200_120x120.png");
                 adapter.notifyDataSetChanged();
             break;
 
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -123,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        DownLoadManager.getSingleton().init(this);
-        adapter= new DownLoadAdapter(this, DownLoadManager.DownList);
+        adapter= new DownLoadAdapter(this, DownLoadManager.getSingleton(this).getDownList());
         lv_main.setAdapter(adapter);
 
 
@@ -133,21 +133,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
+        DownLoadManager.getSingleton(this).DownLoad(this);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-         DownLoadManager.getSingleton().DownSave(this);
+         DownLoadManager.getSingleton(this).DownSave(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
     }
 }

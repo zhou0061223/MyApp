@@ -18,16 +18,13 @@ public abstract class CommonBaseAdapter<VH extends CommonBaseAdapter.ViewHolder,
     protected List<T> mList;
     public LayoutInflater mInflater;
 
-    protected ProgressDialog mProgressDialog;
+  //  protected ProgressDialog mProgressDialog;
 
     public CommonBaseAdapter(Context context, List<T> list) {
         this.mContext = context;
         this.mList = list;
         this.mInflater = LayoutInflater.from(mContext);
     }
-
-
-
 
     @Override
     public int getCount() {

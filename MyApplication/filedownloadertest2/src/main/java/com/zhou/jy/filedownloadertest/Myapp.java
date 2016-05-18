@@ -12,6 +12,5 @@ public class Myapp extends Application{
     public void onCreate() {
         super.onCreate();
         FileDownloader.init(getApplicationContext());
-
     }
 }
