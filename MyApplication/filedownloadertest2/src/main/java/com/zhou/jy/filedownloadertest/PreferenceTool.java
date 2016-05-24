@@ -62,7 +62,6 @@ public class PreferenceTool {
 			objectInputStream.close();
 			return  mybeans;
 		}
-
 	}
 
 

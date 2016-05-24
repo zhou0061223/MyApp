@@ -58,10 +58,8 @@ public class DownLoadAdapter extends CommonBaseAdapter<DownLoadAdapter.FileViewH
             holder.mTvDownloadSpeed.setVisibility(View.VISIBLE);
             holder.mNumberProgressBar.setMax(mList.get(position).getTotalBytes());
             holder.mNumberProgressBar.setProgress(mList.get(position).getSoFarBytes());
-           // DownLoadManager.DownList.get(position).setFinish(false);
             DownLoadManager.getSingleton(mContext).getDownList().get(position).setFinish(false);
             holder.updateDownloading(0,0,0);
-
         } else {
             holder.mBtnOperate.setText("继续");
             holder.mNumberProgressBar.setVisibility(View.VISIBLE);
@@ -118,7 +116,7 @@ public class DownLoadAdapter extends CommonBaseAdapter<DownLoadAdapter.FileViewH
                task.setListener(new DownloadListener(holder,position,mContext));
              //  task=DownLoadManager.getSingleton().createTask(downloadTask.getUrl(),downloadTask.getPath());
                task.start();
-               mList.get(position).setBaseDownloadTask(task);
+              // mList.get(position).setBaseDownloadTask(task);
            }
 
         }
@@ -146,6 +144,8 @@ public class DownLoadAdapter extends CommonBaseAdapter<DownLoadAdapter.FileViewH
     public void setDownloadId(final int id) {
         this.id = id;
     }
+
+        public void  initDownloaded(){}
 
     public void updateDownloaded() {
         mNumberProgressBar.setProgress(100);

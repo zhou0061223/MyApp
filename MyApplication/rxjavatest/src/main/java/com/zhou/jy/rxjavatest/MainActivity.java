@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
-        Observable.just("zhou aaaaaaa")
+      Observable.just("zhou aaaaaaa")
                 .map(new Func1<String, String>() {
                     @Override
                     public String call(String s) {
@@ -86,5 +86,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("aaaaaaaaaa",s);
                     }
                 });
+
+
+        Observable.just("hello world!!")
+                .map(s1 -> test())
+                .subscribe(s->Log.i("aaaaaaaaaa",s));
+
+    }
+    private String test(){
+
+
+        return "HEllo World";
     }
 }

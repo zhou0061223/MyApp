@@ -43,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
     public  void aaclick(View view){
         switch (view.getId()){
             case R.id.Btn :
-                Log.i("aaaaaaaaa","aaaaaaaaaaaaa");
-
-
-
-
 
                 if(i==0){
 

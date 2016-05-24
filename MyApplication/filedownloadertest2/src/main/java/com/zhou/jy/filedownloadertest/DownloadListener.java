@@ -31,7 +31,6 @@ public class DownloadListener extends FileDownloadListener{
 
     @Override
     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
         fileViewHolder.updateDownloading(soFarBytes,totalBytes ,task.getSpeed());
         DownloadTask downloadTask = DownLoadManager.getSingleton(context).getDownListPosition(position);
         downloadTask.setTotalBytes(totalBytes);

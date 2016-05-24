@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.squareup.okhttp.ResponseBody;
+
 import java.io.IOException;
 
 import retrofit.Call;
@@ -19,23 +21,47 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("https://www.baidu.com/")
+                .baseUrl("http://gc.ditu.aliyun.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
          service = retrofit.create(APIService.class);
+
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-
-                Call<Repo> call=service.loadRepo();
+                Call<City> call=service.getCity("aaaa","bbbb");
                 try {
-                    Response<Repo> repo=call.execute();
-                    Log.i("aaaaaa","ccccccccc");
+                    City city=call.execute().body();
+                    if(city!=null){
+
+                        Log.i("aaaaa",city.lon+""+call.toString());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+           /*     Call<ResponseBody> call = service.get();
+                Response<ResponseBody> bodyResponse = null;
+                try {
+                    bodyResponse = call.execute();
+                    String body = bodyResponse.body().string();//获取返回体的字符串
+                    Log.i("aaaaa",body);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+
+            /*    Call<ResponseBody> call = service.loadRepo();
+                try {
+                    Log.i("aaaaa",call.execute().body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+
+
             }
         }).start();
     }

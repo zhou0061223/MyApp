@@ -40,8 +40,6 @@ public class DownLoadManager {
                 return false;
             }
         }
-
-
         downloadTask
                 .setPath(task.getPath())
                 .setId(task.getDownloadId())
