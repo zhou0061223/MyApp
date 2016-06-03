@@ -35,12 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onError(Throwable e) {
-
         }
 
         @Override
         public void onNext(String s) {
-            Log.i("aaaaaaaaaaaaaaaaaa",s);
+            Log.i("aaaaa三十多分aaaaaaaaaaaaa",s);
         }
     };
 
