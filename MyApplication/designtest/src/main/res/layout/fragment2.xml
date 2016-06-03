@@ -2,10 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_black_7f">
-    <TextView
+    android:background="@color/window_background">
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hello2"/>
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!" />
+
+        <Button
+            android:id="@+id/btn_main_snackbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Snackbar"/>
+
+        <Button
+            android:id="@+id/btn_main_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TabLayout"/>
+        <Button
+            android:id="@+id/btn_main_navigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NavigationView/AppBarLayout"/>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/TT_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入"/>
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fb_mian_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+    </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

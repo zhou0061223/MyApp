@@ -3,20 +3,20 @@ package com.zhou.jy.designtest;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,15 +27,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.btn_main_snackbar)
-     Button btn_snackbar;
-    @Bind(R.id.btn_main_tabLayout)
-    Button btn_tabLayout;
-    @Bind(R.id.btn_main_navigationView)
-    Button btn_navigationView;
-
-    @Bind(R.id.TT_et)
-    TextInputLayout textInputLayout;
 
     @Bind(R.id.nv_main_navigation)
     NavigationView nvMainNavigation;
@@ -44,33 +35,17 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tb;
     @Bind(R.id.VP_mian_view)
     ViewPager vp_view;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    @Bind(R.id.dl_main_drawer)
+    DrawerLayout dlMainDrawer;
+
 
     private FragmentAdapter adapter;
     private List<Fragment>  fragmentList;
     private List<View> views;
 
-
-    @OnClick({R.id.btn_main_snackbar,R.id.btn_main_tabLayout,R.id.btn_main_navigationView})
-    void Onclick(View view){
-          switch (view.getId()){
-              case R.id.btn_main_snackbar :
-                  Snackbar.make(view,"test..snackbar",Snackbar.LENGTH_LONG)
-                          .setAction("action", new View.OnClickListener() {
-                              @Override
-                              public void onClick(View v) {
-                                  Toast.makeText(MainActivity.this,"test..toast",Toast.LENGTH_LONG).show();
-                              }
-                          }).show();
-
-
-                      textInputLayout.setError("errororoor");
-                      textInputLayout.setErrorEnabled(true);
-                  break;
-
-
-          }
-
-    }
 
 
     @Override
@@ -80,26 +55,30 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
         setTheme( R.style.AppThemeDay);
         ButterKnife.bind(this);
+        toolbar.setTitle("zhou");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, dlMainDrawer, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle.syncState();
+        dlMainDrawer.setDrawerListener(mDrawerToggle);
 
         View headerView = nvMainNavigation.inflateHeaderView(R.layout.nav_header_main);
         nvMainNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                dlMainDrawer.closeDrawers();
                 switch (item.getItemId()){
-
                     case R.id.nav_change :
                         Toast.makeText(MainActivity.this,"change",Toast.LENGTH_LONG).show();
-                       // Snackbar.make(new View(context),"change",Snackbar.LENGTH_LONG).show();
                         break;
                     case R.id.nav_login:
                         Toast.makeText(MainActivity.this,"login",Toast.LENGTH_LONG).show();
-                       // Snackbar.make(new View(context),"login",Snackbar.LENGTH_LONG).show();
                         break;
                     case R.id.nav_manage:
                         Toast.makeText(MainActivity.this,"manage",Toast.LENGTH_LONG).show();
-                      //  Snackbar.make(new View(context),"manage",Snackbar.LENGTH_LONG).show();
                         break;
 
                 }
@@ -124,5 +103,33 @@ public class MainActivity extends AppCompatActivity {
         tb.setTabMode(TabLayout.MODE_FIXED);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mian, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()){
+
+                case R.id.nav_change :
+                    Toast.makeText(MainActivity.this,"change",Toast.LENGTH_LONG).show();
+                    break;
+                case R.id.nav_login:
+                    Toast.makeText(MainActivity.this,"login",Toast.LENGTH_LONG).show();
+                    break;
+                case R.id.nav_manage:
+                    Toast.makeText(MainActivity.this,"manage",Toast.LENGTH_LONG).show();
+                    break;
+                case  android.R.id.home:
+                    dlMainDrawer.openDrawer(GravityCompat.START);
+                    break;
+
+            }
+
+        return true;
     }
 }

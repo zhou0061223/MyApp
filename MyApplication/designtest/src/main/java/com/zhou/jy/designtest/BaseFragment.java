@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 
 
 public abstract class BaseFragment extends Fragment {
@@ -19,21 +20,27 @@ public abstract class BaseFragment extends Fragment {
 
 	public abstract int getContentView();
 	public abstract void initView(View view);
-	
+	public abstract void init();
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
-		
+
 	}
 	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		ViewGroup viewGroup=(ViewGroup) inflater.inflate(R.layout.gtotoro_sdk_fragment_base,container, false);
-		viewGroup.addView(inflater.inflate(getContentView(),null), 0);
-		return viewGroup;
+	/*	ViewGroup viewGroup=(ViewGroup) inflater.inflate(R.layout.gtotoro_sdk_fragment_base,container, false);
+		viewGroup.addView(inflater.inflate(getContentView(),null), 0);*/
+		//View view=inflater.inflate(R.layout.gtotoro_sdk_fragment_base,container, false);
+		View view=inflater.inflate(getContentView(),container, false);
+		ButterKnife.bind(this, view);
+
+		init();
+		return view;
 	}
 	
 	
