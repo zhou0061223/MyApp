@@ -1,1 +1,1 @@
-include ':app', ':filedownloaderfinal', ':filedownloadertest', ':filedownloadertest2', ':recyclerviewtest', ':base-adapter-library', ':retrofit2.0test', ':utilslibrary', ':rxjavatest', ':mvptest', ':designtest'
+include ':app', ':filedownloaderfinal', ':filedownloadertest', ':filedownloadertest2', ':recyclerviewtest', ':base-adapter-library', ':retrofit2.0test', ':utilslibrary', ':rxjavatest', ':mvptest', ':baseFragmentdemo', ':designtest', ':rxbustest'
