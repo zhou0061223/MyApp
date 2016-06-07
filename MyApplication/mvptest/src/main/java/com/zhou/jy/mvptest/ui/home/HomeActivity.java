@@ -35,6 +35,7 @@ import com.zhou.jy.mvptest.ui.article.ArticleActivity;
 import com.zhou.jy.mvptest.ui.login.LoginActivity;
 import com.zhou.jy.mvptest.ui.main.AboutActivity;
 import com.zhou.jy.mvptest.ui.main.SettingsActivity;
+import com.zhou.jy.mvptest.ui.test.TestActivity;
 import com.zhou.jy.mvptest.ui.user.UserActivity;
 import com.zhou.jy.mvptest.view.viewholder.ArticleItemVH;
 
@@ -89,6 +90,10 @@ public class HomeActivity extends BaseActivity<HomePresenter, HomeModel> impleme
             startActivity(new Intent(mContext, AboutActivity.class));
         else if (item.getItemId() == android.R.id.home)
             dlMainDrawer.openDrawer(GravityCompat.START);
+        else if(item.getItemId() == R.id.action_test){
+            Intent intent=new Intent(mContext, TestActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

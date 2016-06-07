@@ -23,4 +23,7 @@ public class C {
     public static final String TAG_EDITABLE = "editable";
     public static final String TAG_HEADDATA = "with_headdata";
 
+    //test
+    public static final String EVENT_TEST="test";
+
 }

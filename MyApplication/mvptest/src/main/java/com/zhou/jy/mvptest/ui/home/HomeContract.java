@@ -9,6 +9,7 @@ import com.zhou.jy.mvptest.data.entity._User;
 public interface HomeContract {
     interface Model extends BaseModel {
         String[] getTabs();
+        String  getTest();
     }
 
 
