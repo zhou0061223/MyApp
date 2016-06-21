@@ -10,7 +10,7 @@ public class Themes {
     public List<String> subscribed;
     public List<other>  others;
 
-  class other{
+  public class other{
       public int color;
       public String thumbnail;
       public String description;

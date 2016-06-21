@@ -16,14 +16,14 @@ public class ThemeData {
     public List<storie> stories;
 
 
-    class storie{
+   public  class storie{
         public List<String> images;
         public int type;
         public int  id ;
         public String title;
     }
 
-    class editor{
+   public  class editor{
         public String url;
         public String bio;
         public int id;
